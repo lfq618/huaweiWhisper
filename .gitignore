@@ -1,0 +1,143 @@
+# ==============================================================================
+# 1. 核心隐私、凭据与敏感配置文件 (CRITICAL PRIVACY & CREDENTIALS)
+# ==============================================================================
+# 环境变量文件 (包含客户端 BaseURL、私有域名等)
+*.env
+*.env.*
+!.env.example
+!.env.*.example
+
+# 服务端配置文件 (包含真实 DeepSeek API Key、私有服务器配置等)
+config.yaml
+config.yml
+server/config.yaml
+server/deploy/config.yaml
+!config.example.yaml
+!config.example.yml
+!server/config.example.yaml
+!server/deploy/config.example.yaml
+
+# 密钥、证书与签名文件
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+*.keystore
+*.jks
+key.properties
+local.properties
+
+# ==============================================================================
+# 2. 服务端数据与构建产物 (SERVER / GO / DATABASE)
+# ==============================================================================
+# 运行时音频、视频与临时数据 (包含用户录音数据)
+server/data/
+data/
+uploads/
+temp/
+*.wav
+*.mp3
+*.m4a
+*.aac
+*.ogg
+*.flac
+*.amr
+*.3gp
+
+# SQLite 本地数据库
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+
+# 服务端编译二进制文件与部署包
+server/deploy/whisper-server
+server/deploy.zip
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+dist/
+
+# ==============================================================================
+# 3. Flutter / Dart 产物 (FLUTTER / MOBILE BUILD ARTIFACTS)
+# ==============================================================================
+# Flutter 缓存与构建输出
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+flutter_app/build/
+flutter_app/.dart_tool/
+flutter_app/.flutter-plugins
+flutter_app/.flutter-plugins-dependencies
+flutter_app/.pub-cache/
+flutter_app/.pub/
+
+# 移动端打包安装包与符号表
+*.apk
+*.aab
+*.ipa
+*.app
+*.symbols
+*.map.json
+
+# Android 编译缓存
+.gradle/
+flutter_app/android/.gradle/
+flutter_app/android/app/build/
+flutter_app/android/build/
+flutter_app/android/captures/
+flutter_app/android/app/debug/
+flutter_app/android/app/profile/
+flutter_app/android/app/release/
+GeneratedPluginRegistrant.java
+
+# iOS / macOS 编译缓存与依赖
+Pods/
+flutter_app/ios/Pods/
+flutter_app/ios/.symlinks/
+flutter_app/ios/Flutter/Flutter.framework/
+flutter_app/ios/Flutter/Flutter.podspec
+flutter_app/ios/Flutter/Generated.xcconfig
+flutter_app/ios/Flutter/app.flx
+flutter_app/ios/Flutter/app.zip
+flutter_app/ios/Flutter/flutter_assets/
+flutter_app/macos/Pods/
+DerivedData/
+
+# Windows / Linux 编译产物
+flutter_app/windows/flutter/ephemeral/
+flutter_app/linux/flutter/ephemeral/
+
+# ==============================================================================
+# 4. IDE 与系统临时文件 (IDE & OS ARTIFACTS)
+# ==============================================================================
+# JetBrains / Android Studio
+.idea/
+*.iml
+*.ipr
+*.iws
+flutter_app/.idea/
+flutter_app/*.iml
+
+# VS Code
+.vscode/
+
+# 操作系统临时文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.tmp
+*.temp
+*.log

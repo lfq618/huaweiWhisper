@@ -1,0 +1,19 @@
+[Unit]
+Description=Huawei Whisper Go Backend Server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/whisper-server
+ExecStart=/opt/whisper-server/whisper-server -config /opt/whisper-server/config.yaml
+Restart=on-failure
+RestartSec=5s
+LimitNOFILE=65535
+
+# 日志输出配置
+StandardOutput=append:/opt/whisper-server/server.log
+StandardError=append:/opt/whisper-server/server.log
+
+[Install]
+WantedBy=multi-user.target

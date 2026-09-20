@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<meta content="mobile_stack" name="shell-type"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary-container": "#4f46e5",
+            "secondary-fixed": "#acedff",
+            "surface-tint": "#4d44e3",
+            "outline-variant": "#c7c4d8",
+            "surface-container-highest": "#dae2fd",
+            "surface": "#faf8ff",
+            "inverse-primary": "#c3c0ff",
+            "on-secondary-container": "#006172",
+            "primary-fixed-dim": "#c3c0ff",
+            "on-secondary-fixed": "#001f26",
+            "tertiary-fixed": "#6ffbbe",
+            "on-error": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f2f3ff",
+            "on-primary-fixed-variant": "#3323cc",
+            "tertiary": "#005338",
+            "surface-container-high": "#e2e7ff",
+            "surface-dim": "#d2d9f4",
+            "background": "#faf8ff",
+            "tertiary-fixed-dim": "#4edea3",
+            "inverse-on-surface": "#eef0ff",
+            "on-background": "#131b2e",
+            "on-tertiary-fixed-variant": "#005236",
+            "secondary-container": "#57dffe",
+            "on-surface": "#131b2e",
+            "on-tertiary-container": "#67f4b7",
+            "surface-variant": "#dae2fd",
+            "error": "#ba1a1a",
+            "on-surface-variant": "#6b7280",
+            "secondary": "#00687a",
+            "on-tertiary-fixed": "#002113",
+            "on-primary-fixed": "#0f0069",
+            "tertiary-container": "#006e4b",
+            "surface-container": "#f4f5fc",
+            "on-tertiary": "#ffffff",
+            "surface-bright": "#faf8ff",
+            "error-container": "#ffdad6",
+            "on-secondary-fixed-variant": "#004e5c",
+            "on-error-container": "#93000a",
+            "outline": "#777587",
+            "secondary-fixed-dim": "#4cd7f6",
+            "on-secondary": "#ffffff",
+            "primary": "#3525cd",
+            "on-primary-container": "#dad7ff",
+            "inverse-surface": "#283044",
+            "primary-fixed": "#e2dfff",
+            "on-primary": "#ffffff"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          fontFamily: {
+            sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    @layer base {
+      html, body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #faf8ff;
+      }
+      body {
+        overscroll-behavior-y: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+      .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+<body class="bg-surface font-sans text-on-surface antialiased flex flex-col min-h-screen">
+<!-- 1. 顶部极简导航栏 -->
+<header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-md border-b border-black/[0.03]">
+<div class="flex items-center justify-between px-3 h-12 relative">
+<button aria-label="返回" class="w-9 h-9 flex items-center justify-center rounded-full text-on-surface active:bg-surface-container transition-colors" onclick="history.back()">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+</button>
+<h1 class="absolute left-1/2 -translate-x-1/2 text-[16px] font-semibold text-on-surface tracking-tight">转写详情</h1>
+<button class="w-9 h-9 flex items-center justify-center rounded-full text-on-surface active:bg-surface-container transition-colors" id="export-btn" title="分享 / 导出">
+<span class="material-symbols-outlined text-[20px]">ios_share</span>
+</button>
+</div>
+</header>
+<!-- 主体内容 -->
+<main class="flex-1 flex flex-col relative w-full pt-14 pb-12 pb-safe px-4">
+<div class="flex flex-col w-full space-y-3.5 mt-2">
+<!-- 2. 紧凑克制元信息条 -->
+<section class="bg-surface-container-lowest rounded-2xl px-4 py-3 shadow-[0_1px_3px_rgba(0,0,0,0.02)] flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-xs text-on-surface-variant font-medium tracking-tight overflow-hidden">
+<span class="text-on-surface font-semibold font-mono">08:08</span>
+<span class="text-neutral-300">·</span>
+<span>耗时 5.5分</span>
+<span class="text-neutral-300">·</span>
+<span>准确率 99.2%</span>
+</div>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium shrink-0 ml-2">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+<span>已完成</span>
+</div>
+</section>
+<!-- 3. 音频播放控制区极简重构 -->
+<section class="bg-surface-container-lowest rounded-2xl p-4 shadow-[0_1px_3px_rgba(0,0,0,0.02)] flex flex-col gap-3">
+<!-- 纤细进度条与时间 -->
+<div class="flex flex-col gap-1.5">
+<div class="w-full h-1.5 bg-surface-container rounded-full relative cursor-pointer overflow-hidden group" id="progress-bar-container">
+<div class="h-full bg-primary rounded-full transition-all duration-150" style="width: 27.6%;"></div>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-on-surface-variant">
+<span id="current-time">02:15</span>
+<span>08:08</span>
+</div>
+</div>
+<!-- 紧凑优雅的控制器 -->
+<div class="flex items-center justify-between pt-0.5 px-1">
+<!-- 倍速按钮 -->
+<button class="text-xs font-mono font-medium px-2 py-1 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" id="speed-btn">
+            1.0x
+          </button>
+<!-- 播放核心控制 -->
+<div class="flex items-center gap-3">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface active:bg-surface-container transition-colors" id="rewind-15" title="快退15秒">
+<span class="material-symbols-outlined text-[19px]">replay_10</span>
+</button>
+<button aria-label="播放/暂停" class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-[0_2px_8px_rgba(53,37,205,0.28)] active:scale-95 transition-all" id="play-pause-btn">
+<span class="material-symbols-outlined text-[22px]">play_arrow</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface active:bg-surface-container transition-colors" id="forward-15" title="快进15秒">
+<span class="material-symbols-outlined text-[19px]">forward_10</span>
+</button>
+</div>
+<!-- 右侧轻量占位平衡 (可快速复制音频标记) -->
+<button class="w-7 h-7 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" id="waveform-visual-btn" title="声波">
+<span class="material-symbols-outlined text-[18px]">graphic_eq</span>
+</button>
+</div>
+</section>
+<!-- 4. 轻量分段切换与辅助操作 -->
+<div class="flex items-center justify-between pt-1">
+<!-- Segmented Switch -->
+<div class="bg-surface-container p-0.5 rounded-lg flex items-center text-xs font-medium">
+<button class="py-1 px-3 rounded-[6px] bg-surface-container-lowest text-on-surface shadow-xs transition-all duration-150" id="tab-deepseek">
+            AI 润色稿
+          </button>
+<button class="py-1 px-3 rounded-[6px] text-on-surface-variant hover:text-on-surface transition-all duration-150" id="tab-whisper">
+            原始转写
+          </button>
+</div>
+<!-- 简洁复制全文按钮 -->
+<button class="inline-flex items-center gap-1 text-xs text-on-surface-variant hover:text-primary transition-colors py-1 px-2 rounded-md active:bg-surface-container" id="copy-content">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span>复制全文</span>
+</button>
+</div>
+<!-- 5. 转写段落正文排版 (舒适留白，现代阅读体裁) -->
+<section class="bg-surface-container-lowest rounded-2xl p-5 shadow-[0_1px_3px_rgba(0,0,0,0.02)] min-h-[360px]">
+<!-- AI 润色视图 -->
+<div class="space-y-6" id="view-deepseek">
+<div class="flex items-start gap-3">
+<button class="timestamp-btn shrink-0 text-xs font-mono text-slate-400 hover:text-primary transition-colors pt-[2px]" data-time="00:00">
+              00:00
+            </button>
+<div class="text-[15px] leading-[1.65] text-on-surface">
+              关于无人机基地与机场起降塔台的核心系统架构规划：
+            </div>
+</div>
+<div class="flex items-start gap-3">
+<button class="timestamp-btn shrink-0 text-xs font-mono text-slate-400 hover:text-primary transition-colors pt-[2px]" data-time="00:18">
+              00:18
+            </button>
+<div class="text-[15px] leading-[1.65] text-on-surface">
+              我们理解的所谓“无人机机场”，核心在于自动化起降平台与多源数据采集闭环。无人机在空中巡检作业时，机载传感器会实时回传载荷数据——例如环境遥感云坛沙监测数据与红外雷达灾害告警指标。
+            </div>
+</div>
+<div class="flex items-start gap-3">
+<button class="timestamp-btn shrink-0 text-xs font-mono text-slate-400 hover:text-primary transition-colors pt-[2px]" data-time="01:12">
+              01:12
+            </button>
+<div class="text-[15px] leading-[1.65] text-on-surface">
+              另外，地面枢纽的重点不仅是飞行监控，更在于全天候数字调度塔台。它能够全程追踪无人机的飞行轨迹，掌握实时下潜与盘旋高度。当遭遇降雨等极端对流天气时，塔台能够实现自动下达就近返航与机库精准锁仓指令。
+            </div>
+</div>
+<div class="flex items-start gap-3">
+<button class="timestamp-btn shrink-0 text-xs font-mono text-slate-400 hover:text-primary transition-colors pt-[2px]" data-time="02:05">
+              02:05
+            </button>
+<div class="text-[15px] leading-[1.65] text-on-surface">
+              综上所述，整套无人机巡检体系应由空域感知载荷、移动传输中继与高可靠地面基站三大模块协同作业。
+            </div>
+</div>
+</div>
+<!-- 原始转写视图 (初始隐藏) -->
+<div class="hidden space-y-6" id="view-whisper">
+<div class="flex items-start gap-3">
+<button class="timestamp-btn shrink-0 text-xs font-mono text-slate-400 hover:text-primary transition-colors pt-[2px]" data-time="00:00">
+              00:00
+            </button>
+<div class="text-[15px] leading-[1.65] text-slate-600">
+              嗯，机场吗？机场就是包那个，无人机那个，和哥哥。
+            </div>
+</div>
+<div class="flex items-start gap-3">
+<button class="timestamp-btn shrink-0 text-xs font-mono text-slate-400 hover:text-primary transition-colors pt-[2px]" data-time="00:18">
+              00:18
+            </button>
+<div class="text-[15px] leading-[1.65] text-slate-600">
+              嗯，就好比，好好好。我理解的是，那无人机在天上飞，它肯定有些数据吧。嗯，它肯定，你要无人机里头，它拍的什么东西，是它的负载是不是，叫什么云坛沙滥，沙灾，有什么红麦尖，对对对。
+            </div>
+</div>
+<div class="flex items-start gap-3">
+<button class="timestamp-btn shrink-0 text-xs font-mono text-slate-400 hover:text-primary transition-colors pt-[2px]" data-time="01:12">
+              01:12
+            </button>
+<div class="text-[15px] leading-[1.65] text-slate-600">
+              但是还有一个机场，就是无人机在天上飞，那，你能看到它，它的轨迹在哪呀。它飞到哪了，它是不是底下，就是像当雨，它就有一个那个塔台，是那种东西。嗯，能看着它呀。应该是吧。
+            </div>
+</div>
+</div>
+</section>
+</div>
+<!-- 轻量吐司 -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 px-3.5 py-1.5 bg-neutral-900/90 text-white text-xs font-medium rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-200 z-50" id="toast">
+      已复制到剪贴板
+    </div>
+</main>
+<script>
+    (function() {
+      // 分段模式切换
+      const tabDeepseek = document.getElementById('tab-deepseek');
+      const tabWhisper = document.getElementById('tab-whisper');
+      const viewDeepseek = document.getElementById('view-deepseek');
+      const viewWhisper = document.getElementById('view-whisper');
+
+      tabDeepseek.addEventListener('click', () => {
+        tabDeepseek.className = "py-1 px-3 rounded-[6px] bg-surface-container-lowest text-on-surface shadow-xs transition-all duration-150";
+        tabWhisper.className = "py-1 px-3 rounded-[6px] text-on-surface-variant hover:text-on-surface transition-all duration-150";
+        viewDeepseek.classList.remove('hidden');
+        viewWhisper.classList.add('hidden');
+      });
+
+      tabWhisper.addEventListener('click', () => {
+        tabWhisper.className = "py-1 px-3 rounded-[6px] bg-surface-container-lowest text-on-surface shadow-xs transition-all duration-150";
+        tabDeepseek.className = "py-1 px-3 rounded-[6px] text-on-surface-variant hover:text-on-surface transition-all duration-150";
+        viewWhisper.classList.remove('hidden');
+        viewDeepseek.classList.add('hidden');
+      });
+
+      // 吐司通知
+      const toast = document.getElementById('toast');
+      function showToast(message) {
+        toast.innerText = message;
+        toast.classList.remove('opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+          toast.classList.add('opacity-0', 'pointer-events-none');
+        }, 1800);
+      }
+
+      document.getElementById('copy-content').addEventListener('click', () => {
+        showToast('转写全文已复制');
+      });
+
+      document.getElementById('export-btn').addEventListener('click', () => {
+        showToast('打开分享面板');
+      });
+
+      // 播放/暂停控制
+      const playBtn = document.getElementById('play-pause-btn');
+      let isPlaying = false;
+      playBtn.addEventListener('click', () => {
+        isPlaying = !isPlaying;
+        playBtn.innerHTML = isPlaying 
+          ? '<span class="material-symbols-outlined text-[22px]">pause</span>' 
+          : '<span class="material-symbols-outlined text-[22px]">play_arrow</span>';
+      });
+
+      // 倍速切换
+      const speedBtn = document.getElementById('speed-btn');
+      const speeds = ['1.0x', '1.25x', '1.5x', '2.0x'];
+      let speedIdx = 0;
+      speedBtn.addEventListener('click', () => {
+        speedIdx = (speedIdx + 1) % speeds.length;
+        speedBtn.innerText = speeds[speedIdx];
+      });
+
+      // 点击时间戳更新
+      const timeDisplay = document.getElementById('current-time');
+      document.querySelectorAll('.timestamp-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const t = btn.getAttribute('data-time');
+          timeDisplay.innerText = t;
+          showToast('已跳转至 ' + t);
+        });
+      });
+    })();
+  </script>
+</body></html>

@@ -1,0 +1,43 @@
+server:
+  port: 8082
+  mode: "release" # debug | release
+  read_timeout_sec: 60
+  write_timeout_sec: 600
+
+# 本地 whisper.cpp / whisper-server HTTP 服务 (与当前 Go 服务同机部署)
+whisper:
+  url: "http://127.0.0.1:8081"
+  timeout_min: 10
+  temperature: 0.0
+
+# DeepSeek 文本润色大模型 (加标点、纠正同音错别字、润色排版)
+deepseek:
+  enabled: true
+  base_url: "https://api.deepseek.com/v1"
+  api_key: "sk-your-deepseek-api-key" # 也可通过系统环境变量 DEEPSEEK_API_KEY 配置
+  model: "deepseek-chat"
+  timeout_sec: 60
+  temperature: 0.3
+
+# 任务队列与转码设置
+transcribe:
+  data_dir: "./data"
+  upload_dir: "./data/uploads"
+  temp_dir: "./data/temp"
+  max_file_size_mb: 50
+  max_duration_sec: 1800 # 单音频最大时长 30 分钟 (0 表示不限)
+  queue_capacity: 100
+  max_retries: 2 # 失败自动重试次数
+  ffmpeg_timeout_sec: 180
+  auto_cleanup_source: false # 转写成功后是否自动删除上传的原音频
+  allowed_formats:
+    - ".m4a"
+    - ".wav"
+    - ".mp3"
+    - ".aac"
+    - ".ogg"
+    - ".flac"
+    - ".amr"
+    - ".3gp"
+    - ".mp4"
+    - ".webm"

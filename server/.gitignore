@@ -1,0 +1,76 @@
+# ==============================================================================
+# 1. 服务端敏感配置与凭据 (CREDENTIALS & SENSITIVE CONFIGS)
+# ==============================================================================
+# 服务端配置文件 (包含实际 DeepSeek API Key 与私有服务参数)
+config.yaml
+config.yml
+deploy/config.yaml
+deploy/config.yml
+!config.example.yaml
+!config.example.yml
+!deploy/config.example.yaml
+!deploy/config.example.yml
+
+# 环境变量
+.env
+.env.*
+!.env.example
+
+# ==============================================================================
+# 2. 运行时数据与音频 (RUNTIME DATA & MEDIA)
+# ==============================================================================
+# 本地音频上传与临时处理目录
+data/
+uploads/
+temp/
+*.wav
+*.mp3
+*.m4a
+*.aac
+*.ogg
+*.flac
+*.amr
+*.3gp
+*.mp4
+*.webm
+
+# SQLite 本地数据库文件
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+
+# ==============================================================================
+# 3. Go 编译产物与部署包 (BUILD ARTIFACTS & BINARIES)
+# ==============================================================================
+# 编译二进制可执行文件
+deploy/whisper-server
+whisper-server
+whisper-server.exe
+main
+main.exe
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# 部署压缩包
+deploy.zip
+*.zip
+*.tar.gz
+
+# 构建输出目录
+bin/
+dist/
+
+# ==============================================================================
+# 4. IDE 与系统临时文件 (IDE & LOGS)
+# ==============================================================================
+.idea/
+.vscode/
+*.log
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
