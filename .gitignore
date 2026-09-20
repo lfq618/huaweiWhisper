@@ -141,3 +141,6 @@ Thumbs.db
 *.tmp
 *.temp
 *.log
+# 运营与自媒体文案 (小红书推文等)
+docs/xhs/
+xhs/
